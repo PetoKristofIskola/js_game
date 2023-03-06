@@ -60,11 +60,10 @@ class GameArea{
     
 }
 const game = new GameArea("Canvas");
-//for(let i = 0; i < 360; i+=1){
-//    game.addEntity(new Dvd(game, i))
-//}
+for(let i = 0; i < 1000; i+=1){
+    game.player.addPart()
+}
 
-game.addEntity(new Dvd(game))
 
 
 
