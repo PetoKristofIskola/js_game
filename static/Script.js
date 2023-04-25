@@ -1,6 +1,6 @@
-import { Player } from "./Player.js";
-import { Dvd } from "./Dvd.js";
-import { InputHandler } from "./InputHandler.js";
+import { Player } from "/static/Player.js";
+import { Dvd } from "/static/Dvd.js";
+import { InputHandler } from "/static/InputHandler.js";
 
 class GameArea{
     constructor(canvasId){
@@ -18,6 +18,8 @@ class GameArea{
         this.inputHandler = new InputHandler()
         this.ctx = this.canvas.getContext("2d");
         this.player = new Player(this, this.inputHandler);
+
+        this.sio = io()
 
         console.log('Game Area init')
     }

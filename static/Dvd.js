@@ -5,7 +5,7 @@ export class Dvd{
         this.height = 90 //90
         this.x = (GameArea.canvas.width/2)-(this.width/2)
         this.y = (GameArea.canvas.height/2)-(this.height/2)
-        this.velocity = 15
+        this.velocity = 10
         this.deg = deg
         this.deg = (this.deg + 180) *-1
         this.rad = this.deg * Math.PI/180
