@@ -10,6 +10,14 @@ export class Player{
         this.rad = this.deg * Math.PI/180
         this.inputHandler = InputHandler
         this.isPressed = this.inputHandler.isPressed
+
+        this.color = "black"
+        if (localStorage.color == '' || localStorage.color == undefined){
+            this.color = prompt("color (HTML, HEX, RGB, RGBA)")
+            localStorage.setItem("color", this.color)
+        } else{
+            this.color = localStorage.color
+        }
     }
 
     update(ctx){
@@ -41,10 +49,12 @@ export class Player{
                 this.y = this.y+(Math.cos(this.rad)*this.velocity)
             }
         }
+        this.GameArea.sio.emit("playerData", {username:this.GameArea.getUsername(),x: this.x, y: this.y, width:this.width, height:this.height, color:this.color})
     }
     draw(ctx){
-        ctx.fillStyle = "black"
+        ctx.fillStyle = this.color
         ctx.fillRect(this.x, this.y, this.width, this.height)
+        ctx.fillStyle = "black"
     } 
     setHeading(deg){
         this.deg = (deg + 180) *-1

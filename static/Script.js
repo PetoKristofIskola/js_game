@@ -1,6 +1,10 @@
 import { Player } from "/static/Player.js";
 import { Dvd } from "/static/Dvd.js";
 import { InputHandler } from "/static/InputHandler.js";
+import { EPlayer } from "/static/EPlayer.js";
+import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+
+
 
 class GameArea{
     constructor(canvasId){
@@ -18,10 +22,20 @@ class GameArea{
         this.inputHandler = new InputHandler()
         this.ctx = this.canvas.getContext("2d");
         this.player = new Player(this, this.inputHandler);
-
         this.sio = io()
 
+        if (localStorage.username == '' || localStorage.username == undefined){
+            this.username = prompt("username")
+            localStorage.setItem("username", this.username)
+        } else{
+            this.username = localStorage.username
+        }
+
         console.log('Game Area init')
+    }
+
+    getUsername(){
+        return this.username
     }
 
     update(){
@@ -66,13 +80,15 @@ const game = new GameArea("Canvas");
 //    game.addEntity(new Dvd(game, i))
 //}
 
-game.addEntity(new Dvd(game))
-
 
 
 function startGameLoop(){
     game.update()
     requestAnimationFrame(startGameLoop) 
 }
+
+
+
+game.addEntity(new EPlayer(game))
 
 startGameLoop()
